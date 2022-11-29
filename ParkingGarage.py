@@ -46,7 +46,9 @@ class ParkingGarage:
         Calculates the number of occupied parking spots in the garage.
         :return: The number of occupied spots.
         """
-        return 3
+        occupied = [self.check_occupancy(p) for p in [self.INFRARED_PIN1, self.INFRARED_PIN2, self.INFRARED_PIN3]]
+        return occupied.count(True)
+
 
     def calculate_parking_fee(self, entry_time: str) -> float:
         """
