@@ -51,3 +51,9 @@ class ParkingGarageTest(unittest.TestCase):
         fee = self.pg.calculate_parking_fee("12:30:00")
         self.assertEqual(2.50, fee)
 
+    @patch.object(GPIO, 'input')
+    def test_calculate_parking_fee_two_hour(self, mock_input):
+        mock_input.return_value = "12:00:00"
+        fee = self.pg.calculate_parking_fee("13:30:00")
+        self.assertEqual(5.0, fee)
+
