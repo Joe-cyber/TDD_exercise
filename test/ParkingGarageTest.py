@@ -33,6 +33,12 @@ class ParkingGarageTest(unittest.TestCase):
         occupied = self.pg.get_occupied_spots()
         self.assertEqual(3, occupied)
 
+    @patch.object(GPIO, 'input')
+    def test_get_occupied_spots_zero(self, mock_input):
+        mock_input.side_effect = [50, 50, 50]
+        occupied = self.pg.get_occupied_spots()
+        self.assertEqual(0, occupied)
+
 
 
 
