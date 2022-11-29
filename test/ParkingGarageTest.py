@@ -12,4 +12,8 @@ class ParkingGarageTest(unittest.TestCase):
     """
     Your test methods go here
     """
-    pass
+
+    def test_park_one_occupied(self):
+        garage = ParkingGarage()
+        occupied = garage.check_occupancy(ParkingGarage.INFRARED_PIN1)
+        self.assertTrue(occupied)
