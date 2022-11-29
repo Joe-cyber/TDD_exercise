@@ -26,3 +26,13 @@ class ParkingGarageTest(unittest.TestCase):
         mock_input.return_value = 0
         occupied = self.pg.check_occupancy(ParkingGarage.INFRARED_PIN1)
         self.assertFalse(occupied)
+
+    @patch.object(GPIO, 'input')
+    def test_get_occupied_spots_three(self, mock_input):
+        mock_input.side_effect = [50, 50, 50]
+        occupied = self.pg.get_occupied_spots()
+        self.assertEqual(3, occupied)
+
+
+
+
