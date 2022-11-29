@@ -37,6 +37,7 @@ class ParkingGarage:
         :return: True if the infrared sensor detects something, False otherwise.
         """
         #occupied = GPIO.input(pin)
+
         return True
 
     def get_occupied_spots(self) -> int:
