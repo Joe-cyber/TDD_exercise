@@ -12,8 +12,11 @@ class ParkingGarageTest(unittest.TestCase):
     """
     Your test methods go here
     """
-
-    def test_park_one_occupied(self):
+    @patch.object(GPIO, 'input')
+    def test_park_one_occupied(self, mock_input):
         garage = ParkingGarage()
+        mock_input.return_value = 50
         occupied = garage.check_occupancy(ParkingGarage.INFRARED_PIN1)
         self.assertTrue(occupied)
+
+
