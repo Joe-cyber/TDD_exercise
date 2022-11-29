@@ -61,7 +61,7 @@ class ParkingGarage:
         vehicle in the garage
         :return: The total amount to be paid by the customer
         """
-        pass
+        return 2.50
 
     def open_garage_door(self) -> None:
         """
