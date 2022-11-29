@@ -45,6 +45,9 @@ class ParkingGarageTest(unittest.TestCase):
         occupied = self.pg.get_occupied_spots()
         self.assertEqual(2, occupied)
 
-
-
+    @patch.object(GPIO, 'input')
+    def test_calculate_parking_fee_one_hour(self, mock_input):
+        mock_input.return_value = "12:00:00"
+        fee = self.pg.calculate_parking_fee("12:30:00")
+        self.assertEqual(2.50, fee)
 
