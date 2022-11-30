@@ -2,6 +2,7 @@ import time
 import mock.GPIO as GPIO
 from mock.RTC import RTC
 from ParkingGarageError import ParkingGarageError
+from datetime import datetime
 
 
 class ParkingGarage:
@@ -61,7 +62,11 @@ class ParkingGarage:
         vehicle in the garage
         :return: The total amount to be paid by the customer
         """
-        return 2.50
+        actual_time = datetime.strptime(RTC.get_current_time_string(), "%H:%M:%S")
+        entry_time = datetime.strptime(entry_time, "%H:%M:%S")
+        hours = actual_time - entry_time
+        hours = int(hours.seconds / (60 * 60)) + 1
+        return hours * 2.50
 
     def open_garage_door(self) -> None:
         """

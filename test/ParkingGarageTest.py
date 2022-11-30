@@ -45,15 +45,15 @@ class ParkingGarageTest(unittest.TestCase):
         occupied = self.pg.get_occupied_spots()
         self.assertEqual(2, occupied)
 
-    @patch.object(GPIO, 'input')
+    @patch.object(RTC, 'get_current_time_string')
     def test_calculate_parking_fee_one_hour(self, mock_input):
-        mock_input.return_value = "12:00:00"
-        fee = self.pg.calculate_parking_fee("12:30:00")
+        mock_input.return_value = "12:30:00"
+        fee = self.pg.calculate_parking_fee("12:00:00")
         self.assertEqual(2.50, fee)
 
-    @patch.object(GPIO, 'input')
+    @patch.object(RTC, 'get_current_time_string')
     def test_calculate_parking_fee_two_hour(self, mock_input):
-        mock_input.return_value = "12:00:00"
-        fee = self.pg.calculate_parking_fee("13:30:00")
+        mock_input.return_value = "13:30:00"
+        fee = self.pg.calculate_parking_fee("12:00:00")
         self.assertEqual(5.0, fee)
 
