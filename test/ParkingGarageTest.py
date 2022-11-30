@@ -83,3 +83,8 @@ class ParkingGarageTest(unittest.TestCase):
         self.assertIsNotNone(open)
         self.assertFalse(open)
 
+    def test_light_on(self):
+        self.pg.turn_light_on()
+        on = self.pg.light_is_on()
+        self.assertIsNotNone(on)
+        self.assertTrue(on)
