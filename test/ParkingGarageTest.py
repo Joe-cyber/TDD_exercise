@@ -12,6 +12,7 @@ class ParkingGarageTest(unittest.TestCase):
     """
     Your test methods go here
     """
+
     def setUp(self) -> None:
         self.pg = ParkingGarage()
 
@@ -97,3 +98,8 @@ class ParkingGarageTest(unittest.TestCase):
 
     def test_pin_non_valid(self):
         self.assertRaises(ParkingGarageError, self.pg.check_occupancy, 10)
+
+    @patch.object(RTC, 'get_current_time_string')
+    def test_date_not_valid_format(self, mock_input):
+        mock_input.return_value = "test"
+        self.assertRaises(ParkingGarageError, self.pg.calculate_parking_fee, "11:00:00")
