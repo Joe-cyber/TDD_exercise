@@ -69,5 +69,5 @@ class ParkingGarageTest(unittest.TestCase):
         mock_input2.return_value = "13:30:00"
         mock_input.return_value = "SATURDAY"
         fee = self.pg.calculate_parking_fee("11:00:00")
-        self.assertEqual(9.36, fee)
+        self.assertEqual(9.38, fee)
 

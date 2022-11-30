@@ -66,7 +66,9 @@ class ParkingGarage:
         entry_time = datetime.strptime(entry_time, "%H:%M:%S")
         hours = actual_time - entry_time
         hours = int(hours.seconds / (60 * 60)) + 1
-        return hours * 2.50
+        price = hours * 2.50
+        print(RTC.get_current_day() )
+        return round(price, 2) if RTC.get_current_day() != "SATURDAY" and RTC.get_current_day() != "SUNDAY" else round((price + price * 0.25), 2)
 
     def open_garage_door(self) -> None:
         """
