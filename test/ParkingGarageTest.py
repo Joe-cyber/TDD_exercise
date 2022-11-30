@@ -74,5 +74,12 @@ class ParkingGarageTest(unittest.TestCase):
     def test_servo_open(self):
         self.pg.open_garage_door()
         open = self.pg.is_open()
+        self.assertIsNotNone(open)
         self.assertTrue(open)
+
+    def test_servo_closed(self):
+        self.pg.close_garage_door()
+        open = self.pg.is_open()
+        self.assertIsNotNone(open)
+        self.assertFalse(open)
 

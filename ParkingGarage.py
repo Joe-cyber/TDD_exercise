@@ -30,7 +30,7 @@ class ParkingGarage:
         self.rtc = RTC(self.RTC_PIN)
         self.pwm = GPIO.PWM(self.SERVO_PIN, 50)
         self.pwm.start(0)
-        self.servo_status = False
+        self.servo_status = None
 
     def check_occupancy(self, pin: int) -> bool:
         """
