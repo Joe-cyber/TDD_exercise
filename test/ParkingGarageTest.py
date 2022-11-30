@@ -94,3 +94,6 @@ class ParkingGarageTest(unittest.TestCase):
         on = self.pg.light_is_on()
         self.assertIsNotNone(on)
         self.assertFalse(on)
+
+    def test_pin_non_valid(self):
+        self.assertRaises(ParkingGarageError, self.pg.check_occupancy, 10)
