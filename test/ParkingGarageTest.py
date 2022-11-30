@@ -58,8 +58,16 @@ class ParkingGarageTest(unittest.TestCase):
         self.assertEqual(5.0, fee)
 
     @patch.object(RTC, 'get_current_time_string')
-    def test_calculate_parking_fee_two_hour(self, mock_input):
+    def test_calculate_parking_fee_three_hour(self, mock_input):
         mock_input.return_value = "13:30:00"
         fee = self.pg.calculate_parking_fee("11:00:00")
         self.assertEqual(7.5, fee)
+
+    @patch.object(RTC, 'get_current_time_string')
+    @patch.object(RTC, 'get_current_day')
+    def test_calculate_parking_fee_three_hour_on_week_end(self, mock_input, mock_input2):
+        mock_input2.return_value = "13:30:00"
+        mock_input.return_value = "SATURDAY"
+        fee = self.pg.calculate_parking_fee("11:00:00")
+        self.assertEqual(9.36, fee)
 
