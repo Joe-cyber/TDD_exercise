@@ -30,6 +30,7 @@ class ParkingGarage:
         self.rtc = RTC(self.RTC_PIN)
         self.pwm = GPIO.PWM(self.SERVO_PIN, 50)
         self.pwm.start(0)
+        self.servo_status = False
 
     def check_occupancy(self, pin: int) -> bool:
         """
@@ -67,7 +68,6 @@ class ParkingGarage:
         hours = actual_time - entry_time
         hours = int(hours.seconds / (60 * 60)) + 1
         price = hours * 2.50
-        print(RTC.get_current_day() )
         return round(price, 2) if RTC.get_current_day() != "SATURDAY" and RTC.get_current_day() != "SUNDAY" else round((price + price * 0.25), 2)
 
     def open_garage_door(self) -> None:
@@ -75,7 +75,8 @@ class ParkingGarage:
         Opens the garage door using the servo motor
         A motor angle of 180 degrees corresponds to a fully open door
         """
-        pass
+        self.servo_status = True
+        self.change_servo_angle(180)
 
     def close_garage_door(self) -> None:
         """
@@ -106,3 +107,6 @@ class ParkingGarage:
         time.sleep(1)
         GPIO.output(self.SERVO_PIN, GPIO.LOW)
         self.pwm.ChangeDutyCycle(0)
+
+    def is_open(self) -> bool:
+        return self.servo_status

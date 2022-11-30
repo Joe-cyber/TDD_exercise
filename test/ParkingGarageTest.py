@@ -72,6 +72,7 @@ class ParkingGarageTest(unittest.TestCase):
         self.assertEqual(9.38, fee)
 
     def test_servo_open(self):
+        self.pg.open_garage_door()
         open = self.pg.is_open()
         self.assertTrue(open)
 
