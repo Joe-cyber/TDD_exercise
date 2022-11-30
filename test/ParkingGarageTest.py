@@ -71,3 +71,7 @@ class ParkingGarageTest(unittest.TestCase):
         fee = self.pg.calculate_parking_fee("11:00:00")
         self.assertEqual(9.38, fee)
 
+    def test_servo_open(self):
+        open = self.pg.is_open()
+        self.assertTrue(open)
+
