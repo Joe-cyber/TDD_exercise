@@ -66,13 +66,16 @@ class ParkingGarage:
         vehicle in the garage
         :return: The total amount to be paid by the customer
         """
-        actual_time = datetime.strptime(RTC.get_current_time_string(), "%H:%M:%S")
-        entry_time = datetime.strptime(entry_time, "%H:%M:%S")
-        hours = actual_time - entry_time
-        hours = int(hours.seconds / (60 * 60)) + 1
-        price = hours * 2.50
-        return round(price, 2) if RTC.get_current_day() != "SATURDAY" and RTC.get_current_day() != "SUNDAY" else round(
-            (price + price * 0.25), 2)
+        try:
+            actual_time = datetime.strptime(RTC.get_current_time_string(), "%H:%M:%S")
+            entry_time = datetime.strptime(entry_time, "%H:%M:%S")
+            hours = actual_time - entry_time
+            hours = int(hours.seconds / (60 * 60)) + 1
+            price = hours * 2.50
+            return round(price, 2) if RTC.get_current_day() != "SATURDAY" and RTC.get_current_day() != "SUNDAY" else round(
+                (price + price * 0.25), 2)
+        except:
+            raise ParkingGarageError
 
     def open_garage_door(self) -> None:
         """
