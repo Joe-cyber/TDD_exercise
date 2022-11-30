@@ -31,6 +31,7 @@ class ParkingGarage:
         self.pwm = GPIO.PWM(self.SERVO_PIN, 50)
         self.pwm.start(0)
         self.servo_status = None
+        self.light_on = None
 
     def check_occupancy(self, pin: int) -> bool:
         """
@@ -51,7 +52,6 @@ class ParkingGarage:
         occupied = [self.check_occupancy(p) for p in [self.INFRARED_PIN1, self.INFRARED_PIN2, self.INFRARED_PIN3]]
         return occupied.count(True)
 
-
     def calculate_parking_fee(self, entry_time: str) -> float:
         """
         Uses the RTC to calculate the amount of money to be paid by the customer of the garage
@@ -68,7 +68,8 @@ class ParkingGarage:
         hours = actual_time - entry_time
         hours = int(hours.seconds / (60 * 60)) + 1
         price = hours * 2.50
-        return round(price, 2) if RTC.get_current_day() != "SATURDAY" and RTC.get_current_day() != "SUNDAY" else round((price + price * 0.25), 2)
+        return round(price, 2) if RTC.get_current_day() != "SATURDAY" and RTC.get_current_day() != "SUNDAY" else round(
+            (price + price * 0.25), 2)
 
     def open_garage_door(self) -> None:
         """
@@ -90,7 +91,8 @@ class ParkingGarage:
         """
         Turns on the smart lightbulb
         """
-        pass
+        GPIO.output(self.LED_PIN, GPIO.HIGH)
+        self.light_on = True
 
     def turn_light_off(self) -> None:
         """
@@ -111,3 +113,6 @@ class ParkingGarage:
 
     def is_open(self) -> bool:
         return self.servo_status
+
+    def light_is_on(self) -> bool:
+        return self.light_on
