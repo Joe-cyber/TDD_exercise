@@ -39,10 +39,13 @@ class ParkingGarage:
         :param pin: The data pin of the sensor that is being checked (e.g., INFRARED_PIN1).
         :return: True if the infrared sensor detects something, False otherwise.
         """
-        occupied = GPIO.input(pin)
-        if occupied > 0:
-            return True
-        return False
+        if pin in [self.INFRARED_PIN1, self.INFRARED_PIN2, self.INFRARED_PIN3]:
+            occupied = GPIO.input(pin)
+            if occupied > 0:
+                return True
+            return False
+        else:
+            raise ParkingGarageError
 
     def get_occupied_spots(self) -> int:
         """
