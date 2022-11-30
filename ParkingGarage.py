@@ -98,7 +98,8 @@ class ParkingGarage:
         """
         Turns off the smart lightbulb
         """
-        pass
+        GPIO.output(self.LED_PIN, GPIO.LOW)
+        self.light_on = False
 
     def change_servo_angle(self, duty_cycle):
         """
